@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20120911002948) do
   end
 
   create_table "hosts", :force => true do |t|
+    t.references :record_storage, :polymorphic => true
     t.text     "domain"
     t.text     "uri"
     t.datetime "created_at", :null => false
@@ -37,6 +38,8 @@ ActiveRecord::Schema.define(:version => 20120911002948) do
   end
 
   create_table "record_storages", :force => true do |t|
+    t.references :cordinate, :polymorphic => true
+    t.references :header, :polymorphic => true
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
