@@ -14,14 +14,25 @@ function getJSON(URL,success){
 function setclick(evt){
 	//evt.preventDefault();
 	console.log(evt);
-	getJSON("http://localhost:3000/submit?mouse="+evt.clientX+","+evt.clientY+"&screen="+window.innerWidth+","+window.innerHeight+"&host="+window.location.origin+"&uri="+escape(window.location.pathname)+"&callbakc=?",null);
+	
+	var screenCords = window.innerWidth+","+window.innerHeight;
+	var mouseCords = evt.clientX+","+evt.clientY;
+	var host = window.location.origin;
+	var path = escape(window.location.pathname);
+	var elem = "\"element\":\""+evt.srcElement.tagName+"\"";
+	var id = (evt.srcElement.id != "") ? "\"id\":'"+evt.srcElement.id+"\"," :"";
+	var type = "\"type\":\""+evt.type+"\"";
+	//var data = "'data':'"+evt.clipboardData.getData('text/html')+"'";
+	getJSON("http://localhost:3000/submit?mouse="+mouseCords+"&screen="+screenCords+"&host="+host+"&uri="+path+"&headers="+escape("{"+elem+","+id+type+"}")+"&callbakc=?",null);
 	
 }
 
 if(document.addEventListener) { // DOM standard
     document.addEventListener('click', setclick, false);
-	document.addEventListener('onbeforeunload', setclick, false);
+	window.addEventListener('beforeunload', setclick, false);
+	//document.addEventListener('copy', setclick, false);
 } else if(document.attachEvent) { // IE
     document.attachEvent('onclick', setclick);
-	document.attachEvent('onbeforeunload', setclick);
+	window.attachEvent('onbeforeunload', setclick);
+	//document.attachEvent('oncopy', setclick);
 }
