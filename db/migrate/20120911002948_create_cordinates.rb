@@ -5,6 +5,7 @@ class CreateCordinates < ActiveRecord::Migration
       t.decimal :mouseY
       t.decimal :screenX
       t.decimal :screenY
+      t.references :record_storage
 
       t.timestamps
     end
