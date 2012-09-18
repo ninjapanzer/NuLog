@@ -18,30 +18,36 @@ ActiveRecord::Schema.define(:version => 20120911002948) do
     t.decimal  "mouseY"
     t.decimal  "screenX"
     t.decimal  "screenY"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "record_storage_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "headers", :force => true do |t|
     t.text     "name"
     t.text     "value"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "record_storage_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "hosts", :force => true do |t|
-    t.references :record_storage, :polymorphic => true
     t.text     "domain"
     t.text     "uri"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "record_storage_id"
+    t.string   "record_storage_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "record_storages", :force => true do |t|
-    t.references :cordinate, :polymorphic => true
-    t.references :header, :polymorphic => true
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "cordinate_id"
+    t.string   "cordinate_type"
+    t.integer  "header_id"
+    t.string   "header_type"
+    t.integer  "host_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end
