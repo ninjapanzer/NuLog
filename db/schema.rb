@@ -19,35 +19,32 @@ ActiveRecord::Schema.define(:version => 20120911002948) do
     t.decimal  "screenX"
     t.decimal  "screenY"
     t.integer  "record_storage_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string   "record_storage_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "headers", :force => true do |t|
     t.text     "name"
     t.text     "value"
     t.integer  "record_storage_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-  end
-
-  create_table "hosts", :force => true do |t|
-    t.text     "domain"
-    t.text     "uri"
-    t.integer  "record_storage_id"
     t.string   "record_storage_type"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "hosts", :force => true do |t|
+    t.text     "domain"
+    t.text     "uri"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "record_storages", :force => true do |t|
-    t.integer  "cordinate_id"
-    t.string   "cordinate_type"
-    t.integer  "header_id"
-    t.string   "header_type"
     t.integer  "host_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.string   "host_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
