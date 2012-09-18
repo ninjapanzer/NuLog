@@ -3,10 +3,6 @@ class GatherRecordController < ApplicationController
     
     submitHash = request.GET
     
-    #HEADER Object
-    head = Header.create
-    #END HEADER
-    
     #CORDINATE Object
     cord = Cordinate.create
     cord.mouse submitHash[:mouse]
@@ -16,8 +12,17 @@ class GatherRecordController < ApplicationController
     #RECORD_STORAGE Object
     rs = RecordStorage.create
     rs.cordinate = cord
-    rs.headers.push head
     #END RECORD_STORAGE
+    
+    #HEADER Object
+    henum = Header.extract submitHash[:headers]
+    henum.each do |key,value|
+      head = Header.create
+      head.name = key
+      head.value = value
+      rs.headers.push head
+    end
+    #END HEADER
     
     #HOST object
     @host = Host.create
