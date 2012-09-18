@@ -12,15 +12,16 @@ function getJSON(URL,success){
 }
 
 function setclick(evt){
-	evt.preventDefault();
+	//evt.preventDefault();
 	console.log(evt);
 	getJSON("http://localhost:3000/submit?mouse="+evt.clientX+","+evt.clientY+"&screen="+window.innerWidth+","+window.innerHeight+"&host="+window.location.origin+"&uri="+escape(window.location.pathname)+"&callbakc=?",null);
+	
 }
 
 if(document.addEventListener) { // DOM standard
     document.addEventListener('click', setclick, false);
-	document.addEventListener('hashchange', setclick, false);
+	document.addEventListener('onbeforeunload', setclick, false);
 } else if(document.attachEvent) { // IE
     document.attachEvent('onclick', setclick);
-	document.attachEvent('onhashchange', setclick);
+	document.attachEvent('onbeforeunload', setclick);
 }
